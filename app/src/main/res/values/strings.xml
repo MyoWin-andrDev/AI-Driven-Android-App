@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">Talent AI\'s Project</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+
+    <style name="confirm_username">Confirm Username</style>
+
+    <style name="confirm_password">Confirm Password</style>
+
+    <string name="register">Register</string>
+    <string name="login">Login</string>
+    <string name="dont_have_account_register">Don\'t have an account?</string>
+    <string name="sample_username">Username</string>
+    <string name="sample_status_text">I am an Android Developer</string>
+</resources>
