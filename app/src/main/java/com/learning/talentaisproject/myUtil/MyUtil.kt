@@ -2,8 +2,11 @@ package com.learning.talentaisproject.myUtil
 
 import android.content.Context
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
+import com.learning.talentaisproject.databinding.DialogEditStatusBinding
 
 fun Context.showToast(value : String){
     Toast.makeText(this, value , Toast.LENGTH_LONG).show()
@@ -53,4 +56,26 @@ fun TextInputLayout.validateConfirmPassword(password: String): Boolean {
             true
         }
     }
+}
+
+// Add this in a new file like Extensions.kt or directly in HomeActivity
+fun AppCompatActivity.showEditDialog(
+    currentText: String,
+    onSave: (String) -> Unit
+) {
+    val dialogBinding = DialogEditStatusBinding.inflate(layoutInflater)
+    dialogBinding.etEditStatus.setText(currentText)
+
+    AlertDialog.Builder(this)
+        .setView(dialogBinding.root)
+        .setPositiveButton("Save") { _, _ ->
+            val newText = dialogBinding.etEditStatus.text.toString().trim()
+            if (newText.isNotEmpty()) {
+                onSave(newText)
+            } else {
+                showToast("Status cannot be empty!")
+            }
+        }
+        .setNegativeButton("Cancel", null)
+        .show()
 }

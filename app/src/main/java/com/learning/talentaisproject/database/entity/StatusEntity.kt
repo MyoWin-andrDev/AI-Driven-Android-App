@@ -18,7 +18,7 @@ import androidx.room.PrimaryKey
 data class StatusEntity(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")
-    val id: Int? = 0,
+    val id: Int = 0,
 
     @ColumnInfo(name = "user_id")
     val user_id : Int ,

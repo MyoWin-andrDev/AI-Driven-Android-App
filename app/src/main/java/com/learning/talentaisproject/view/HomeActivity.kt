@@ -13,6 +13,7 @@ import com.learning.talentaisproject.database.database.AppDatabase
 import com.learning.talentaisproject.database.entity.StatusEntity
 import com.learning.talentaisproject.databinding.ActivityHomeBinding
 import com.learning.talentaisproject.datastore.UsernameDataStore
+import com.learning.talentaisproject.myUtil.showEditDialog
 import com.learning.talentaisproject.myUtil.showToast
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
@@ -47,14 +48,10 @@ class HomeActivity : AppCompatActivity() {
                 lifecycleScope.launch {
                     val statusText = etStatus.text.toString().trim()
                     if (statusText.isNotEmpty()) {
-                        val inserted = appDatabase.statusDao().insertStatus(
-                            StatusEntity(  -1 , appDatabase.userDao().getUserIdByName(username), username, statusText)
-                        )
-                        if (inserted == 1L) {
-                            showToast("Status Uploaded Successfully")
-                            etStatus.text = null
-                            loadStatuses()
-                        }
+                        val inserted = appDatabase.statusDao().insertStatus(StatusEntity(  0 , user_id = appDatabase.userDao().getUserIdByName(username), username = username, content =  statusText))
+                        showToast("Status Uploaded Successfully")
+                        etStatus.text = null
+                        loadStatuses()
                     } else {
                         showToast("Status Cannot be Empty!")
                     }
@@ -81,17 +78,20 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private fun editStatus(status: StatusEntity) {
-        lifecycleScope.launch {
-            val updated = appDatabase.statusDao().updateStatus(status)
-            showToast(if (updated == 1) "Status Updated Successfully" else "Something Went Wrong!")
-            loadStatuses()
+        showEditDialog(status.content) { newContent ->
+            lifecycleScope.launch {
+                val updatedStatus = status.copy(content = newContent)
+                if((appDatabase.statusDao().updateStatus(updatedStatus)) == 1){
+                    loadStatuses()
+                    showToast("Status updated!")
+                }
+            }
         }
     }
 
     private fun deleteStatus(status: StatusEntity) {
         lifecycleScope.launch {
-            val deleted = appDatabase.statusDao().deleteStatus(status)
-            showToast(if (deleted == 1) "Status Deleted Successfully" else "Something Went Wrong!")
+            showToast(if (appDatabase.statusDao().deleteStatus(status) == 1) "Status Deleted Successfully" else "Something Went Wrong!")
             loadStatuses()
         }
     }

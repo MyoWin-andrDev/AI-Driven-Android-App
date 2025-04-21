@@ -25,7 +25,7 @@ class RegisterActivity : AppCompatActivity() {
                 if (validateInputs()) {
                     // All inputs are valid, proceed with registration
                    lifecycleScope.launch {
-                       if((appDatabase.userDao().insertUser(UserEntity( 0 ,etUsername.text.toString(), etPassword.text.toString()))) == 1L){
+                       if((appDatabase.userDao().insertUser(UserEntity( username = etUsername.text.toString(), password = etPassword.text.toString()))) == 1L){
                            showToast("Account Created Successfully")
                            Intent(this@RegisterActivity, LoginActivity::class.java).also {
                                startActivity(it)

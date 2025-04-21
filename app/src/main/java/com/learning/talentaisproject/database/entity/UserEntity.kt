@@ -9,7 +9,7 @@ import androidx.room.PrimaryKey
 data class UserEntity(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "user_id")
-    val userId: Int? = 0,
+    val userId: Int = 0,
 
     @ColumnInfo(name = "username", collate = ColumnInfo.NOCASE)
     val username: String,
