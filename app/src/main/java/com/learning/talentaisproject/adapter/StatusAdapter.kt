@@ -12,13 +12,12 @@ class StatusAdapter(
     private val onDeleteClick: (StatusEntity) -> Unit
 ) : RecyclerView.Adapter<StatusAdapter.StatusViewHolder>() {
 
-    private val statusList = mutableListOf<StatusEntity>()
-
+    private var statusList : List<StatusEntity>  = emptyList()
     @SuppressLint("NotifyDataSetChanged")
     fun submitList(newList: List<StatusEntity>) {
-        statusList.clear()
-        statusList.addAll(newList)
+        statusList = newList
         notifyDataSetChanged()
+
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StatusViewHolder =

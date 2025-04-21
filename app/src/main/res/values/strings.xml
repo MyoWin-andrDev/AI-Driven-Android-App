@@ -3,9 +3,9 @@
     <string name="username">Username</string>
     <string name="password">Password</string>
 
-    <style name="confirm_username">Confirm Username</style>
+    <string name="confirm_username">Confirm Username</string>
 
-    <style name="confirm_password">Confirm Password</style>
+    <string name="confirm_password">Confirm Password</string>
 
     <string name="register">Register</string>
     <string name="login">Login</string>

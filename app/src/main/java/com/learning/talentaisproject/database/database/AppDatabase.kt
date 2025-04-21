@@ -5,26 +5,28 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.learning.talentaisproject.database.dao.StatusDao
+import com.learning.talentaisproject.database.dao.UserDao
 import com.learning.talentaisproject.database.entity.StatusEntity
+import com.learning.talentaisproject.database.entity.UserEntity
+import kotlinx.coroutines.InternalCoroutinesApi
 
-@Database(entities = [StatusEntity::class], version = 1)
+
+@Database(entities = [UserEntity::class,StatusEntity::class], version = 1)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun statusDao(): StatusDao
+    abstract fun userDao() : UserDao
 
-    companion object {
+    companion object{
         @Volatile
-        private var INSTANCE: AppDatabase? = null
+        private var INSTANCE : AppDatabase? = null
 
-        fun getDatabase(context: Context): AppDatabase {
-            return INSTANCE ?: synchronized(this) {
-                val instance = Room.databaseBuilder(
-                    context.applicationContext,
-                    AppDatabase::class.java,
-                    "status_database"
-                ).build()
+        fun getDatabaseInstance(context: Context): AppDatabase {
+            return INSTANCE ?: synchronized(this){
+                val instance = Room.databaseBuilder(context.applicationContext, AppDatabase::class.java, "appDatabase.db").build()
                 INSTANCE = instance
                 instance
             }
+
         }
     }
 }

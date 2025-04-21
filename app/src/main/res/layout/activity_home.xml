@@ -5,8 +5,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp"
     tools:context=".view.HomeActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/tbToolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:title="Upload Status"
+        android:background="?attr/colorPrimary"
+        app:titleTextColor="?attr/colorOnPrimary"
+        app:menu="@menu/menu_item"/>
 
     <!-- Status Input Section -->
     <com.google.android.material.textfield.TextInputLayout
@@ -15,7 +26,8 @@
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toStartOf="@id/btnUpload"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@id/tbToolbar"
+        android:layout_marginStart="8dp">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etStatus"
@@ -33,11 +45,11 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:text="Upload"
-        app:icon="@drawable/ic_upload"
         app:iconGravity="textStart"
         app:layout_constraintBottom_toBottomOf="@id/statusInputLayout"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/statusInputLayout"/>
+        app:layout_constraintTop_toTopOf="@id/statusInputLayout"
+        app:layout_goneMarginStart="8dp"/>
 
     <!-- Status List -->
     <androidx.recyclerview.widget.RecyclerView
